@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import './Auth.css'; // 👈 Include the new styles
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -21,7 +22,7 @@ const Login = () => {
       const res = await axios.post('http://localhost:5000/auth/login', formData);
       login(res.data.token);
       setMessage('✅ Login successful!');
-      navigate('/');
+      setTimeout(() => navigate('/'), 1000);
     } catch (err) {
       setMessage(err.response?.data?.error || '❌ Login failed. Try again.');
     } finally {
@@ -30,29 +31,62 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Login</h2>
-      {message && <div className="alert alert-info">{message}</div>}
-      <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          placeholder="Email"
-          className="form-control my-2"
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="form-control my-2"
-          onChange={handleChange}
-          required
-        />
-        <button className="btn btn-success" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
+    <div className="auth-page">
+      <div className="auth-container">
+        <div className="auth-illustration">
+          <img src="/assets/farmer.svg" alt="Farmer Illustration" />
+        </div>
+        <div className="auth-form">
+          <h3 className="text-center mb-3">🔐 Login to <strong>AgriSmart</strong></h3>
+          {message && <div className="alert alert-info text-center">{message}</div>}
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="form-control"
+                placeholder="Enter your email"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                className="form-control"
+                placeholder="Enter your password"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="d-grid mb-2">
+              <button type="submit" className="btn btn-success" disabled={loading}>
+                {loading ? 'Logging in...' : 'Login'}
+              </button>
+            </div>
+
+            <div className="text-center mb-2">
+              <small>
+                <Link to="/forgot-password" className="text-decoration-none">Forgot Password?</Link>
+              </small>
+            </div>
+
+            <div className="text-center">
+              <small>
+                Don’t have an account?{' '}
+                <Link to="/register" className="text-decoration-none">Register here</Link>
+              </small>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
