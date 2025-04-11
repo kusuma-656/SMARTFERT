@@ -1,15 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
-
-import FertilizerPrediction from "./components/FertilizerPrediction";
-import ImpactPrediction from "./components/ImpactPrediction";
-import Register from "./components/register";
-import Login from "./components/login";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth } from "./context/AuthContext";
+import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import ForgotPassword from "./components/ForgotPassword"; // ✅ Import this
 
+import Dashboard from "./pages/Dashboard";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import HomePage from "./pages/homepage";
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuth();
@@ -25,11 +24,7 @@ const App = () => {
         {/* Navbar */}
         <nav className="navbar navbar-expand-lg navbar-dark bg-success shadow-sm px-4">
           <div className="container-fluid">
-            <Link
-              className="navbar-brand fw-bold text-white fs-3"
-              to="/"
-              style={{ fontFamily: "Segoe UI", letterSpacing: "1px" }}
-            >
+            <Link className="navbar-brand fw-bold text-white fs-3" to="/dashboard">
               🌱 AgriSmart
             </Link>
             <div className="collapse navbar-collapse">
@@ -37,7 +32,7 @@ const App = () => {
                 {token ? (
                   <>
                     <li className="nav-item">
-                      <Link className="nav-link text-white" to="/">Home</Link>
+                      <Link className="nav-link text-white" to="/dashboard">Dashboard</Link>
                     </li>
                     <li className="nav-item">
                       <button className="btn btn-outline-light ms-2" onClick={logout}>
@@ -66,23 +61,14 @@ const App = () => {
 
         {/* Routes */}
         <div className="container mt-4">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <>
-                    <h2 className="mb-4 text-success fw-semibold">Fertilizer Recommender System</h2>
-                    <FertilizerPrediction />
-                    <ImpactPrediction />
-                  </>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-          </Routes>
+        <Routes>
+  <Route path="/" element={<HomePage />} /> {/* 👈 This is the new line for home */}
+  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/login" element={<LoginPage />} />
+  <Route path="/register" element={<RegisterPage />} />
+  <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+</Routes>
+
         </div>
       </div>
     </Router>
