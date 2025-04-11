@@ -1,24 +1,24 @@
+# auth.py
 from flask import Blueprint, request, jsonify
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, JWTManager
-from flask_pymongo import PyMongo
 from flask_cors import CORS
+from db import mongo, init_db
 from datetime import timedelta
 
 auth_bp = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
-mongo = PyMongo()
 
 def init_auth(app):
-    # ✅ Set MongoDB URI (default local connection)
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/fertilizer_app"
-
-    # ✅ Initialize extensions
+    app.config["MONGO_URI"] = "mongodb+srv://kulal:kulal@cluster0.vimzzk0.mongodb.net/fertilizerRecommender?retryWrites=true&w=majority&appName=Cluster0"
+    
     CORS(app)
     bcrypt.init_app(app)
-    mongo.init_app(app)
+    init_db(app)
     JWTManager(app)
     app.register_blueprint(auth_bp, url_prefix='/auth')
+
+
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
