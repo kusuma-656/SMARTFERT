@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -32,6 +34,26 @@ const FertilizerPrediction = () => {
       );
       setResult(response.data);
       setError(null);
+
+      // Save values to local storage for impact prediction
+      localStorage.setItem(
+        "fertilizer_data",
+        JSON.stringify({
+          crop_type: formData.crop_type,
+          nitrogen: formData.nitrogen,
+          phosphorus: formData.phosphorus,
+          potassium: formData.potassium,
+        })
+      );
+      
+      // Console log stored values
+      const storedData = JSON.parse(localStorage.getItem("fertilizer_data"));
+      console.log("Stored Fertilizer Data:");
+      console.log("Crop Type:", storedData.crop_type);
+      console.log("Nitrogen:", storedData.nitrogen);
+      console.log("Phosphorus:", storedData.phosphorus);
+      console.log("Potassium:", storedData.potassium);
+      
     } catch (error) {
       console.error("Error:", error);
       setResult(null);
@@ -145,14 +167,12 @@ const FertilizerPrediction = () => {
             </button>
           </form>
 
-          {/* Error Handling */}
           {error && (
             <div className="alert alert-danger mt-3">
               <strong>Error:</strong> {error}
             </div>
           )}
 
-          {/* Prediction Result */}
           {result && (
             <div className="alert alert-success mt-3 text-center">
               <h4 className="mb-3"><i className="bi bi-flower3"></i> Predicted Fertilizer</h4>
