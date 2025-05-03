@@ -1,9 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"; // 👈 Import the Footer
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -18,10 +20,10 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
   return (
     <Router>
-      <div>
-        <Navbar /> {/* 👈 Importing the separate Navbar component */}
+      <div className="d-flex flex-column min-vh-100">
+        <Navbar />
 
-        <div className="container mt-4">
+        <div className="container mt-4 flex-grow-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -30,6 +32,8 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Routes>
         </div>
+
+        <Footer /> {/* 👈 Footer at the bottom */}
       </div>
     </Router>
   );
