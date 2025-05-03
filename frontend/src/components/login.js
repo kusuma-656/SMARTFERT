@@ -22,7 +22,7 @@ const Login = () => {
       const res = await axios.post('http://localhost:5000/auth/login', formData);
       login(res.data.token);
       setMessage('✅ Login successful!');
-      setTimeout(() => navigate('/'), 1000);
+      setTimeout(() => navigate('/dashboard'), 1000);
     } catch (err) {
       setMessage(err.response?.data?.error || '❌ Login failed. Try again.');
     } finally {
