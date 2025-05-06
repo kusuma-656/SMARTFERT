@@ -36,15 +36,20 @@ const FertilizerPrediction = () => {
       setError(null);
 
       // Save values to local storage for impact prediction
-      localStorage.setItem(
-        "fertilizer_data",
-        JSON.stringify({
-          crop_type: formData.crop_type,
-          nitrogen: formData.nitrogen,
-          phosphorus: formData.phosphorus,
-          potassium: formData.potassium,
-        })
-      );
+   // After storing data in localStorage
+localStorage.setItem(
+  "fertilizer_data",
+  JSON.stringify({
+    crop_type: formData.crop_type,
+    nitrogen: formData.nitrogen,
+    phosphorus: formData.phosphorus,
+    potassium: formData.potassium,
+  })
+);
+
+// Notify other components
+window.dispatchEvent(new Event("fertilizerDataUpdated"));
+
       
       // Console log stored values
       const storedData = JSON.parse(localStorage.getItem("fertilizer_data"));
