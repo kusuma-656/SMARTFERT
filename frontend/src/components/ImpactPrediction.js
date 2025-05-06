@@ -134,16 +134,29 @@ const ImpactPrediction = () => {
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    const storedData = localStorage.getItem("fertilizer_data");
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
-      console.log("Fetched from localStorage:", parsedData);
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        ...parsedData,
-      }));
-    }
+    const fetchStoredData = () => {
+      const storedData = localStorage.getItem("fertilizer_data");
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ...parsedData,
+        }));
+      }
+    };
+  
+    // Initial load
+    fetchStoredData();
+  
+    // Listen for update event
+    window.addEventListener("fertilizerDataUpdated", fetchStoredData);
+  
+    // Clean up
+    return () => {
+      window.removeEventListener("fertilizerDataUpdated", fetchStoredData);
+    };
   }, []);
+  
   
 
   const handleChange = (e) => {
