@@ -34,7 +34,7 @@ const FertilizerPrediction = () => {
         nitrogen: data.nitrogen,
         phosphorus: data.phosphorus,
         potassium: data.potassium,
-        humidity: data.humidity,
+        soil_moisture: data.soil_moisture,
       }));
     } catch (err) {
       console.error("Failed to fetch sensor data", err);
@@ -183,13 +183,13 @@ const FertilizerPrediction = () => {
               </div>
             </div>
             <div className="col-md-6 mb-3">
-              <label className="form-label fw-semibold">humidity</label>
+              <label className="form-label fw-semibold">Soil moitsure</label>
               <input
                 type="number"
                 className="form-control rounded-3"
-                name="humidity"
-                placeholder="Enter humidity Level"
-                value={formData.humidity}
+                name="soil_moisture"
+                placeholder="Enter soil moisture Level"
+                value={formData.soil_moisture}
                 onChange={handleChange}
                 required
               />

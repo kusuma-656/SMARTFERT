@@ -59,11 +59,12 @@
 
 
 const express = require("express");
+const cors = require("cors"); // ✅ Add this line
 const { SerialPort } = require("serialport");
 const { ReadlineParser } = require('@serialport/parser-readline'); // Correct import for the Readline parser
 const app = express();
 const port = 4000;
-
+app.use(cors());
 // Replace with the correct serial port for your device
 const serialPortPath = "COM7"; // Modify this according to your system
 

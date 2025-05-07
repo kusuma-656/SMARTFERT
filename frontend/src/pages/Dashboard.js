@@ -6,8 +6,12 @@ const Dashboard = () => {
   return (
     <>
       <h2 className="mb-4 text-success fw-semibold">Fertilizer Recommender System</h2>
-      <FertilizerPrediction />
-      <ImpactPrediction />
+      <div className="mb-3">
+        <FertilizerPrediction />
+      </div>
+      <div>
+        <ImpactPrediction />
+      </div>
     </>
   );
 };
