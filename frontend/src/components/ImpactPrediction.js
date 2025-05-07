@@ -171,11 +171,32 @@ const ImpactPrediction = () => {
         formData
       );
       setResult(response.data);
+  
+      // After prediction, store the result in MongoDB
+      const token = localStorage.getItem("token");
+  
+      await axios.post(
+        "http://127.0.0.1:5000/auth/storeImpactResult",
+        {
+          ...formData,
+          carbon_emissions_kg: response.data.carbon_emissions_kg,
+          water_pollution_risk: response.data.water_pollution_risk,
+          soil_degradation_index: response.data.soil_degradation_index,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log("Impact prediction data stored successfully.");
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to predict environmental impact");
     }
   };
+  
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: "#f8f9fa" }}>

@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { useAuth } from "./context/AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer"; // 👈 Import the Footer
+import Footer from "./components/Footer"; // Import the Footer
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -18,11 +17,17 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  const { loading } = useAuth();
+
+  // Wait for the loading state to finish before rendering routes
+  if (loading) {
+    return <div>Loading...</div>; // Show loading state (spinner or text)
+  }
+
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
         <Navbar />
-
         <div className="container mt-4 flex-grow-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -32,8 +37,7 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Routes>
         </div>
-
-        <Footer /> {/* 👈 Footer at the bottom */}
+        <Footer /> {/* Footer at the bottom */}
       </div>
     </Router>
   );
