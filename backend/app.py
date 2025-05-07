@@ -6,10 +6,15 @@ from flask_cors import CORS
 from sklearn.preprocessing import LabelEncoder
 from auth import init_auth
 
+
+
 # Initialize Flask app
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'c33feae675800516319f70cb5c693b8d' 
 init_auth(app)
+
+# After initializing the app
+CORS(app, origins=["http://localhost:3000"])  # Allow only the frontend to access the backend
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # ✅ Correct Crop and Soil Types
@@ -78,6 +83,7 @@ def predict_fertilizer():
 
         # ✅ Predict fertilizer
         prediction = rf_model.predict(input_data)[0]
+        
         print(f"✅ Predicted Fertilizer: {prediction}")
 
         return jsonify({'predicted_fertilizer': prediction})
