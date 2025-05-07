@@ -13,8 +13,21 @@ init_auth(app)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # ✅ Correct Crop and Soil Types
-CROP_TYPES = ['Wheat', 'Ragi', 'Maize', 'Rice', 'Sugarcane']
-SOIL_TYPES = ['Clayey', 'Loamy', 'Sandy', 'Silty']
+CROP_TYPES = [
+    'Wheat', 'Ragi', 'Maize', 'Rice', 'Sugarcane', 'Barley', 'Millet', 'Sorghum',
+    'Oats', 'Corn', 'Soybean', 'Lentil', 'Chickpea', 'Pea', 'Groundnut', 'Mustard',
+    'Cotton', 'Sunflower', 'Sesame', 'Flax', 'Tobacco', 'Tea', 'Coffee', 'Banana',
+    'Mango', 'Guava', 'Papaya', 'Pineapple', 'Orange', 'Lemon', 'Apple', 'Grapes',
+    'Pomegranate', 'Coconut', 'Arecanut', 'Cashew', 'Tomato', 'Potato', 'Onion',
+    'Garlic', 'Carrot', 'Spinach', 'Cabbage', 'Cauliflower', 'Brinjal', 'Cucumber',
+    'Pumpkin', 'Beans', 'Okra', 'Bitter Gourd'
+]
+
+SOIL_TYPES = [
+    'Clayey', 'Loamy', 'Sandy', 'Silty', 'Peaty', 'Saline', 'Laterite',
+    'Black', 'Red', 'Alluvial', 'Chalky', 'Gravelly'
+]
+
 
 # ✅ Re-train Encoders
 crop_encoder = LabelEncoder()
