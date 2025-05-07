@@ -15,8 +15,19 @@ const FertilizerPrediction = () => {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
-  const cropOptions = ["Wheat", "Ragi", "Maize", "Rice", "Sugarcane"];
-  const soilOptions = ["Clayey", "Loamy", "Sandy", "Silty"];
+  const cropOptions = [
+    'Wheat', 'Ragi', 'Maize', 'Rice', 'Sugarcane', 'Barley', 'Millet', 'Sorghum',
+    'Oats', 'Corn', 'Soybean', 'Lentil', 'Chickpea', 'Pea', 'Groundnut', 'Mustard',
+    'Cotton', 'Sunflower', 'Sesame', 'Flax', 'Tobacco', 'Tea', 'Coffee', 'Banana',
+    'Mango', 'Guava', 'Papaya', 'Pineapple', 'Orange', 'Lemon', 'Apple', 'Grapes',
+    'Pomegranate', 'Coconut', 'Arecanut', 'Cashew', 'Tomato', 'Potato', 'Onion',
+    'Garlic', 'Carrot', 'Spinach', 'Cabbage', 'Cauliflower', 'Brinjal', 'Cucumber',
+    'Pumpkin', 'Beans', 'Okra', 'Bitter Gourd'
+];
+  const soilOptions = [
+    'Clayey', 'Loamy', 'Sandy', 'Silty', 'Peaty', 'Saline', 'Laterite',
+    'Black', 'Red', 'Alluvial', 'Chalky', 'Gravelly'
+];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
